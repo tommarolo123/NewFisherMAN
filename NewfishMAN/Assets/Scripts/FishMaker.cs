@@ -27,7 +27,7 @@ public class FishMaker : MonoBehaviour
         }
         else
         {
-            //曲がる
+            //曲がる.
         }
     }
 
