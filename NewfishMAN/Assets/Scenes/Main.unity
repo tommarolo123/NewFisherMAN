@@ -3206,25 +3206,8 @@ MonoBehaviour:
   - {fileID: 556119888}
   - {fileID: 1565277365}
   - {fileID: 1608335256}
-  fishPrafabs:
-  - {fileID: 1640359392037373244, guid: de57302ca48824145aba6ba0eb61e174, type: 3}
-  - {fileID: 4374120253216851481, guid: bd86c7e026344d443a69c52e1286a19f, type: 3}
-  - {fileID: 1597550437743492039, guid: d777bd84b1ac7bc469a9a0e155c1683d, type: 3}
-  - {fileID: 4669214191260686462, guid: e65fa8d1f8c99a742ba7954a21e24053, type: 3}
-  - {fileID: 9067884100978806768, guid: acafa373e510f0642a39b207cd53e213, type: 3}
-  - {fileID: 8073197386084641971, guid: 69a406a97f2affb4fa493e7dabe8741b, type: 3}
-  - {fileID: 3126416662742104891, guid: 40d04d7f921b1ad4487d3de5fdc7b833, type: 3}
-  - {fileID: 1726364463500558527, guid: a7b82f54a93a83a448e043a326bbf916, type: 3}
-  - {fileID: 4594130494524544619, guid: 72614af40b4c32747a7d554ceb0ba2b4, type: 3}
-  - {fileID: 462691771052718819, guid: 4734f71918368fe45b9a76cfd1c46712, type: 3}
-  - {fileID: 256675803573671943, guid: 309dd030efc3e6f4d8c27ff46a2d029d, type: 3}
-  - {fileID: 2743924980539846356, guid: cd5721a645f398d42ae31fcfefe9dd71, type: 3}
-  - {fileID: 9043054268428124353, guid: 07ef4145f2703514e96f5d58aa153ba3, type: 3}
-  - {fileID: 273276209965540519, guid: e311289bfa20e3e468ef541fcb05c0b9, type: 3}
-  - {fileID: 4970318767034826088, guid: 441adc6d02bcd5348b19f5286bcf861b, type: 3}
-  - {fileID: 1672760185398714756, guid: 812ebf3d1beda254d9f1f2c255ed26c4, type: 3}
-  - {fileID: 5204318564670776736, guid: 2010e7b09044fb04c8e73541789bd806, type: 3}
-  - {fileID: 6557987758547376681, guid: 92b3d2924df0e0940aa3a68d4a2a1f83, type: 3}
+  fishPrefabs: []
+  waveGenWaitTime: 0.3
 --- !u!4 &1054494707
 Transform:
   m_ObjectHideFlags: 0
