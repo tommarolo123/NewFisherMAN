@@ -39,6 +39,17 @@ public class FishMaker : MonoBehaviour
         }
         else
         {
+            if (Random.Range(0,2) == 0)
+            {
+                angSpeed = Random.Range(-15, -9);//マイナス角速度
+
+            }
+            else
+            {
+                angSpeed = Random.Range(9, 15);
+            }
+
+            StartCoroutine(GenTurnFish(genPosIndex, fishPreIndex, num, speed, angSpeed));
             //曲がる.
         }
     }
@@ -54,6 +65,24 @@ public class FishMaker : MonoBehaviour
             fish.GetComponent<SpriteRenderer>().sortingOrder += i;//層を＋iして生成せれる順番で魚をレンダリング
             //魚群を生成する
             fish.AddComponent<Ef_AutoMove>().speed = speed;
+            yield return new WaitForSeconds(fishGenWaitTime);//0.5秒間隔で同じ魚を生成する  
+        }
+
+    }
+
+    IEnumerator GenTurnFish(int genPosIndex, int fishPreIndex, int num, int speed, int angSpeed)
+    {
+        for (int i = 0; i < num; i++)
+        {
+            GameObject fish = Instantiate(fishPrefabs[fishPreIndex]);
+            fish.transform.SetParent(fishHolder, false);
+            fish.transform.localPosition = genPositions[genPosIndex].localPosition;
+            fish.transform.localRotation = genPositions[genPosIndex].localRotation;
+            
+            fish.GetComponent<SpriteRenderer>().sortingOrder += i;//層を＋iして生成せれる順番で魚をレンダリング
+            //魚群を生成する
+            fish.AddComponent<Ef_AutoMove>().speed = speed;
+            fish.AddComponent<Ef_AutoRotate>().speed = angSpeed;
             yield return new WaitForSeconds(fishGenWaitTime);//0.5秒間隔で同じ魚を生成する  
         }
 
