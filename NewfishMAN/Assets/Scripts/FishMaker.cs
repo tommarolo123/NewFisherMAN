@@ -7,7 +7,7 @@ public class FishMaker : MonoBehaviour
     public Transform[] genPositions; //魚が生まれ点
     public GameObject[] fishPrefabs;//魚のprefab
     public float waveGenWaitTime = 0.3f; //0.3秒ごとに魚を生成する
-
+    public float fishGenWaitTime = 0.5f; //同じ魚群の魚　生成間隔
 
     void Start()
     {
@@ -34,7 +34,7 @@ public class FishMaker : MonoBehaviour
         {
             angOffset = Random.Range(-22, 22);
             // 画面に入る魚群の角度範囲 
-            GenStraightFish(genPosIndex, fishPreIndex, num, speed, angOffset);
+            StartCoroutine(GenStraightFish(genPosIndex, fishPreIndex, num, speed, angOffset));
             //まっすぐ魚群
         }
         else
@@ -42,7 +42,7 @@ public class FishMaker : MonoBehaviour
             //曲がる.
         }
     }
-    void GenStraightFish(int genPosIndex,int fishPreIndex,int num,int speed,int angOffset)
+    IEnumerator GenStraightFish(int genPosIndex,int fishPreIndex,int num,int speed,int angOffset)
     {
         for (int i = 0;i<num;i++)
         {
@@ -51,9 +51,11 @@ public class FishMaker : MonoBehaviour
             fish.transform.localPosition = genPositions[genPosIndex].localPosition;
             fish.transform.localRotation = genPositions[genPosIndex].localRotation;
             fish.transform.Rotate(0, 0, angOffset);
+            fish.GetComponent<SpriteRenderer>().sortingOrder += i;//層を＋iして生成せれる順番で魚をレンダリング
             //魚群を生成する
             fish.AddComponent<Ef_AutoMove>().speed = speed;
-            }
+            yield return new WaitForSeconds(fishGenWaitTime);//0.5秒間隔で同じ魚を生成する  
+        }
 
     }
 }
