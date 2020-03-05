@@ -1,5 +1,6 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameController : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class GameController : MonoBehaviour
     {
         GameObject[] useBullets = bullet5Gos;
         int bulletIndex;
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject() == false) //クリックするときUIをよける。弾でないように
         {
             switch (costIndex / 4) //今の鉄砲
             {
@@ -43,7 +44,8 @@ public class GameController : MonoBehaviour
             bullet.transform.rotation = gunGos[costIndex / 4].transform.Find("FirePos").transform.rotation;
             
             bullet.AddComponent<Ef_AutoMove>().Dir = Vector3.up;//弾飛び
-            bullet.GetComponent<Ef_AutoMove>().speed = 10f;
+            bullet.GetComponent<Ef_AutoMove>().speed = bullet.GetComponent<BulletAttr>().speed;
+            bullet.GetComponent<BulletAttr>().damage = oneShootCosts[costIndex];//弾のcost　
         } 
     } 
     void ChangeBulletCost()//マウスのスクロールで鉄砲を切り替え
