@@ -116,8 +116,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f6ec69168eccf42bc16377edd8db5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 5
   maxNum: 20
   maxSpeed: 8
+  diePrefabs: {fileID: 1289155893842330, guid: d292eb6eeadd672428d7d69d1643fcd1, type: 3}
 --- !u!61 &1195699124977043975
 BoxCollider2D:
   m_ObjectHideFlags: 0

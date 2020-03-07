@@ -21,7 +21,7 @@ public class BulletAttr : MonoBehaviour
             GameObject web = Instantiate(webPrefab);//綱生成
             web.transform.SetParent(gameObject.transform.parent,false);//弾と同じ
             web.transform.position = gameObject.transform.position;//位置
-            
+            web.GetComponent<WebAttr>().damage = damage;//綱の威力
             Destroy(gameObject);
         }
     }
