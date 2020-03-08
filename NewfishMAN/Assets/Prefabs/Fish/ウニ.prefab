@@ -117,6 +117,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  exp: 80
+  gold: 60
   maxNum: 6
   maxSpeed: 5
   diePrefabs: {fileID: 1813626142333364, guid: 7ffc32197782ff44bbef78e0b473ebbd, type: 3}

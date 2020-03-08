@@ -4,24 +4,90 @@ using UnityEngine.EventSystems;
 
 public class GameController : MonoBehaviour
 {
-    public int lv = 0;
+   
     public Transform bulletHolder;
     public Text oneShootCostText; //一発の金額cost
     public GameObject[] gunGos;
-    private int costIndex = 0;
-    //今使っている弾
+    public Text goldText;
+    public Text lvText;
+    public Text lvNameText;//レベルに応じる称号
+    public Text smallCountdownText;//左下
+    public Text bigCountdownText;//右上
+    public Button bigCountdownButton;//時計が0になったら押すとgoldボーナス
+    public Button backButton;
+    public Button settingButton;
+    public Slider expSlider;
+
+
+    public int lv = 0;
+    public int gold = 500;
+    public int exp = 0;
+    public const int bigCountdown = 5;
+    public const int smallCountdown = 3;
+    public float bigTimer = bigCountdown;
+    public float smallTimer = smallCountdown;
+    //初期化   
+    
+    private int costIndex = 0;//今使っている弾
     public GameObject[] bullet1Gos;
     public GameObject[] bullet2Gos;
     public GameObject[] bullet3Gos;
     public GameObject[] bullet4Gos;
     public GameObject[] bullet5Gos;
     private int[] oneShootCosts  = { 5,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900,1000};//一発かかるゴールド
-
+    private string[] lvName = { "初心", "入門" ,"鉄", "銅", "銀","金","ダイヤ","師匠","大漁師"};
     void Update()
     {
         Fire();
         ChangeBulletCost();
+        UpdateUI();
     }
+
+    void UpdateUI()　
+    {
+
+        bigTimer -= Time.deltaTime;
+        smallTimer -= Time.deltaTime;
+        if (smallTimer<=0)//smallボーナス　自動
+        {
+            smallTimer = smallCountdown;//戻す
+            gold += 50;
+
+        }
+        
+        if (bigTimer <= 0 && bigCountdownButton.gameObject.activeSelf==false)　//ボタンによるビッグボーナス　手動 タイマーが＜＝０またボタンがないとき
+
+        {
+            bigCountdownText.gameObject.SetActive(false);//タイマーを隠す
+            bigCountdownButton.gameObject.SetActive(true);//ボタン
+
+        }
+
+     
+    while (exp >= 1000 + 200 * lv)//exp計算：次のレベル＝1000+200*現在レベルexp
+        {
+
+            lv++;
+            exp = exp - (1000 + 200 * lv);
+             
+        }
+        goldText.text = "$" + gold;
+        lvText.text = lv.ToString();
+        if ((lv/10)<=9) //レベル99以上の場合　大漁師
+        {
+            lvNameText.text = lvName[lv / 10];
+        }
+        else
+        {
+            lvNameText.text = lvName[9];
+        }
+        smallCountdownText.text =  (int)smallTimer / 10 + "  " + (int)smallTimer % 10;//左下タイマーを表す
+        bigCountdownText.text = (int)bigTimer + "s";//右上のタイマー
+        expSlider.value = ((float)exp) /(1000 + 200 * lv);//expスライドの表示
+
+
+          }
+
 
     void Fire()
     {
@@ -80,6 +146,13 @@ public class GameController : MonoBehaviour
         //次の鉄砲
         oneShootCostText.text = "$" + oneShootCosts[costIndex];
     }
-
+    public void OnBigCountdownButton()
+    
+        {
+        gold += 500;
+        bigCountdownButton.gameObject.SetActive(false); //ボーナスボタン隠す
+        bigCountdownText.gameObject.SetActive(true);
+        bigTimer = bigCountdown;　//タイマーを戻す
+        }
 
 }

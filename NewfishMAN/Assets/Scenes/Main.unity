@@ -1274,7 +1274,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 210466304}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1054494708}
+        m_MethodName: OnBigCountdownButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &210466302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3549,7 +3560,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef283c00713878489bc93fcaf719463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lv: 0
   bulletHolder: {fileID: 1928155959}
   oneShootCostText: {fileID: 1130763307}
   gunGos:
@@ -3558,6 +3568,20 @@ MonoBehaviour:
   - {fileID: 752969717}
   - {fileID: 687410666}
   - {fileID: 1085193596}
+  goldText: {fileID: 618641156}
+  lvText: {fileID: 2002073992}
+  lvNameText: {fileID: 1192117353}
+  smallCountdownText: {fileID: 1000764204}
+  bigCountdownText: {fileID: 302791722}
+  bigCountdownButton: {fileID: 210466301}
+  backButton: {fileID: 332880851}
+  settingButton: {fileID: 1492746454}
+  expSlider: {fileID: 1923501455}
+  lv: 0
+  gold: 500
+  exp: 0
+  bigTimer: 5
+  smallTimer: 3
   bullet1Gos:
   - {fileID: 1054447775627922, guid: d881a115f8f90604c8706eb94f738015, type: 3}
   - {fileID: 1183613985407370, guid: e22808bb89ed88e43a1bbfe17a7bb9a3, type: 3}
@@ -4058,7 +4082,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: $1000
+  m_Text: $5
 --- !u!222 &1130763308
 CanvasRenderer:
   m_ObjectHideFlags: 0

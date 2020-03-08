@@ -4,6 +4,8 @@ using UnityEngine;
 public class FishAttr : MonoBehaviour
 {
     public int hp;//魚の命
+    public int exp;
+    public int gold; 
     public int maxNum;
     public int maxSpeed;
     public GameObject diePrefabs;
