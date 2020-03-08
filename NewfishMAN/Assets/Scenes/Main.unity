@@ -3580,8 +3580,8 @@ MonoBehaviour:
   lv: 0
   gold: 500
   exp: 0
-  bigTimer: 5
-  smallTimer: 3
+  bigTimer: 240
+  smallTimer: 60
   bullet1Gos:
   - {fileID: 1054447775627922, guid: d881a115f8f90604c8706eb94f738015, type: 3}
   - {fileID: 1183613985407370, guid: e22808bb89ed88e43a1bbfe17a7bb9a3, type: 3}

@@ -24,6 +24,8 @@ public class FishAttr : MonoBehaviour
         hp -= value;
         if (hp<=0)
         {
+            GameController.Instance.gold += gold;
+            GameController.Instance.exp += exp;
             GameObject die = Instantiate(diePrefabs);
             die.transform.SetParent(gameObject.transform.parent, false);
             die.transform.position = transform.position;

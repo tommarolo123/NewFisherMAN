@@ -4,7 +4,17 @@ using UnityEngine.EventSystems;
 
 public class GameController : MonoBehaviour
 {
-   
+    private static GameController _instance;
+    public static GameController Instance
+    {
+        get
+        {
+            return _instance;
+
+        }
+
+    }
+
     public Transform bulletHolder;
     public Text oneShootCostText; //一発の金額cost
     public GameObject[] gunGos;
@@ -22,8 +32,8 @@ public class GameController : MonoBehaviour
     public int lv = 0;
     public int gold = 500;
     public int exp = 0;
-    public const int bigCountdown = 5;
-    public const int smallCountdown = 3;
+    public const int bigCountdown = 240;
+    public const int smallCountdown = 60;
     public float bigTimer = bigCountdown;
     public float smallTimer = smallCountdown;
     //初期化   
@@ -36,6 +46,12 @@ public class GameController : MonoBehaviour
     public GameObject[] bullet5Gos;
     private int[] oneShootCosts  = { 5,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900,1000};//一発かかるゴールド
     private string[] lvName = { "初心", "入門" ,"鉄", "銅", "銀","金","ダイヤ","師匠","大漁師"};
+
+    private void Awake()
+    {
+        _instance = this;
+    }
+
     void Update()
     {
         Fire();
@@ -154,5 +170,7 @@ public class GameController : MonoBehaviour
         bigCountdownText.gameObject.SetActive(true);
         bigTimer = bigCountdown;　//タイマーを戻す
         }
+
+
 
 }
