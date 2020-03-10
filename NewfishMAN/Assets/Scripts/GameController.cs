@@ -1,7 +1,7 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using System.Collections;
 public class GameController : MonoBehaviour
 {
     private static GameController _instance;
@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour
     public Button backButton;
     public Button settingButton;
     public Slider expSlider;
-
+    
 
     public int lv = 0;
     public int gold = 500;
@@ -36,7 +36,10 @@ public class GameController : MonoBehaviour
     public const int smallCountdown = 60;
     public float bigTimer = bigCountdown;
     public float smallTimer = smallCountdown;
+    public Color goldColor;
     //初期化   
+
+   
     
     private int costIndex = 0;//今使っている弾
     public GameObject[] bullet1Gos;
@@ -111,23 +114,32 @@ public class GameController : MonoBehaviour
         int bulletIndex;
         if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject() == false) //クリックするときUIをよける。弾でないように
         {
-            switch (costIndex / 4) //今の鉄砲
+            if(gold-oneShootCosts[costIndex]>=0)//goldチェック
             {
-                case 0: useBullets = bullet1Gos; break;
-                case 1: useBullets = bullet2Gos; break;
-                case 2: useBullets = bullet3Gos; break;
-                case 3: useBullets = bullet4Gos; break;
-                case 4: useBullets = bullet5Gos; break;
+                switch (costIndex / 4) //今の鉄砲
+                {
+                    case 0: useBullets = bullet1Gos; break;
+                    case 1: useBullets = bullet2Gos; break;
+                    case 2: useBullets = bullet3Gos; break;
+                    case 3: useBullets = bullet4Gos; break;
+                    case 4: useBullets = bullet5Gos; break;
+                }
+                bulletIndex = (lv % 10 >= 9) ? 9 : lv % 10;//lv 10ごとに弾の色を変える
+                gold -= oneShootCosts[costIndex]; //goldをかかる    
+                GameObject bullet = Instantiate(useBullets[bulletIndex]);
+                bullet.transform.SetParent(bulletHolder, false);
+                bullet.transform.position = gunGos[costIndex / 4].transform.Find("FirePos").transform.position;//発射位置
+                bullet.transform.rotation = gunGos[costIndex / 4].transform.Find("FirePos").transform.rotation;
+
+                bullet.AddComponent<Ef_AutoMove>().Dir = Vector3.up;//弾飛び
+                bullet.GetComponent<Ef_AutoMove>().speed = bullet.GetComponent<BulletAttr>().speed;
+                bullet.GetComponent<BulletAttr>().damage = oneShootCosts[costIndex];//弾のcost　
             }
-            bulletIndex = (lv % 10 >= 9) ? 9 : lv % 10;//lv 10ごとに弾の色を変える
-            GameObject bullet = Instantiate(useBullets[bulletIndex]);
-            bullet.transform.SetParent(bulletHolder, false);
-            bullet.transform.position = gunGos[costIndex / 4].transform.Find("FirePos").transform.position;//発射位置
-            bullet.transform.rotation = gunGos[costIndex / 4].transform.Find("FirePos").transform.rotation;
-            
-            bullet.AddComponent<Ef_AutoMove>().Dir = Vector3.up;//弾飛び
-            bullet.GetComponent<Ef_AutoMove>().speed = bullet.GetComponent<BulletAttr>().speed;
-            bullet.GetComponent<BulletAttr>().damage = oneShootCosts[costIndex];//弾のcost　
+
+            else
+            {
+                StartCoroutine(GoldNotEnough());
+            }
         } 
     } 
     void ChangeBulletCost()//マウスのスクロールで鉄砲を切り替え
@@ -171,6 +183,13 @@ public class GameController : MonoBehaviour
         bigTimer = bigCountdown;　//タイマーを戻す
         }
 
-
+    IEnumerator GoldNotEnough() //gold足りない場合　アニメーション
+    {
+        
+         goldText.color = Color.red;
+         yield return new WaitForSeconds(0.5f);
+         goldText.color = Color.yellow;
+       
+    }
 
 }
