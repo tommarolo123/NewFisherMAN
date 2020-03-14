@@ -9,6 +9,7 @@ public class FishAttr : MonoBehaviour
     public int maxNum;
     public int maxSpeed;
     public GameObject diePrefabs;
+    public GameObject goldPrefabs;//魚死ぬときgold
     private void OnTriggerEnter2D(Collider2D collision) //魚がborderにぶつかったらなくす　　　　
     {
         if (collision.tag == "Border")
@@ -30,7 +31,12 @@ public class FishAttr : MonoBehaviour
             die.transform.SetParent(gameObject.transform.parent, false);
             die.transform.position = transform.position;
             die.transform.rotation = transform.rotation;
+            GameObject goldGo = Instantiate(goldPrefabs);
+            goldGo.transform.SetParent(gameObject.transform.parent, false);
+            goldGo.transform.position = transform.position;
+            goldGo.transform.rotation = transform.rotation;
             Destroy(gameObject);
+
         }
     }
 }

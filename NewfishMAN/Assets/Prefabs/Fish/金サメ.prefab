@@ -122,6 +122,8 @@ MonoBehaviour:
   maxNum: 1
   maxSpeed: 5
   diePrefabs: {fileID: 1023920073401710, guid: 9c3b04ad187889a4aa9b697e59b0d07e, type: 3}
+  goldPrefabs: {fileID: 1125591468603502, guid: f5badb5f84f284d418a118099b071b24,
+    type: 3}
 --- !u!61 &2609454296536191909
 BoxCollider2D:
   m_ObjectHideFlags: 0
