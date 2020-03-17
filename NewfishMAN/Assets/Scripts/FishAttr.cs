@@ -35,6 +35,10 @@ public class FishAttr : MonoBehaviour
             goldGo.transform.SetParent(gameObject.transform.parent, false);
             goldGo.transform.position = transform.position;
             goldGo.transform.rotation = transform.rotation;
+            if (gameObject.GetComponent<Ef_PlayEffect>() != null)
+            {
+                gameObject.GetComponent<Ef_PlayEffect>().PlayEffect();
+            }
             Destroy(gameObject);
 
         }

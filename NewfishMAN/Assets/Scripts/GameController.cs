@@ -39,8 +39,13 @@ public class GameController : MonoBehaviour
     public Color goldColor;
     //初期化   
 
-   
-    
+
+    public GameObject lvUpTips;　　　//アニメーション
+    public GameObject fireEffect;
+    public GameObject changeEffect;
+    public GameObject lvEffect;
+    public GameObject goldEffect;
+
     private int costIndex = 0;//今使っている弾
     public GameObject[] bullet1Gos;
     public GameObject[] bullet2Gos;
@@ -87,6 +92,10 @@ public class GameController : MonoBehaviour
         {
 
             lv++;
+            lvUpTips.SetActive(true);
+            lvUpTips.transform.Find("Text").GetComponent<Text>().text = lv.ToString();
+            StartCoroutine(lvUpTips.GetComponent<Ef_HideSelf>().HideSelf(0.6f));
+            Instantiate(lvEffect);
             exp = exp - (1000 + 200 * lv);
              
         }
@@ -126,6 +135,7 @@ public class GameController : MonoBehaviour
                 }
                 bulletIndex = (lv % 10 >= 9) ? 9 : lv % 10;//lv 10ごとに弾の色を変える
                 gold -= oneShootCosts[costIndex]; //goldをかかる    
+                Instantiate(fireEffect);
                 GameObject bullet = Instantiate(useBullets[bulletIndex]);
                 bullet.transform.SetParent(bulletHolder, false);
                 bullet.transform.position = gunGos[costIndex / 4].transform.Find("FirePos").transform.position;//発射位置
@@ -158,6 +168,7 @@ public class GameController : MonoBehaviour
         gunGos[costIndex / 4].SetActive(false);
         //今の鉄砲を無効
         costIndex++;
+        Instantiate(changeEffect);
         costIndex = (costIndex > oneShootCosts.Length - 1) ? 0 : costIndex; //最大鉄砲の後は0に戻る
         gunGos[costIndex / 4].SetActive(true);
         //次の鉄砲
@@ -178,6 +189,7 @@ public class GameController : MonoBehaviour
     
         {
         gold += 500;
+        Instantiate(goldEffect);
         bigCountdownButton.gameObject.SetActive(false); //ボーナスボタン隠す
         bigCountdownText.gameObject.SetActive(true);
         bigTimer = bigCountdown;　//タイマーを戻す
