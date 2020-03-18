@@ -65,6 +65,23 @@ public class GameController : MonoBehaviour
         Fire();
         ChangeBulletCost();
         UpdateUI();
+        
+    }
+    void ChangeBg()
+    {
+        if (bgIndex !=lv /20)
+        {
+            bgIndex = lv / 20;
+            Instantiate(seaWaveEffect);
+            if (bgIndex >=3)
+            {
+                bgImage.sprite = bgSprites[3];
+            }
+            else
+            {
+                bgImage.sprite = bgSprites[bgIndex];
+            }
+        }
     }
 
     void UpdateUI()　
