@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     }
 
     public Transform bulletHolder;
+    public Sprite[] bgSprites;
     public Text oneShootCostText; //一発の金額cost
     public GameObject[] gunGos;
     public Text goldText;
@@ -27,7 +28,7 @@ public class GameController : MonoBehaviour
     public Button backButton;
     public Button settingButton;
     public Slider expSlider;
-    
+      
 
     public int lv = 0;
     public int gold = 500;
@@ -38,8 +39,10 @@ public class GameController : MonoBehaviour
     public float smallTimer = smallCountdown;
     public Color goldColor;
     //初期化   
+    public int bgIndex = 0;
 
-
+    public Image bgImage;
+    public GameObject seaWaveEffect;
     public GameObject lvUpTips;　　　//アニメーション
     public GameObject fireEffect;
     public GameObject changeEffect;
@@ -60,20 +63,31 @@ public class GameController : MonoBehaviour
         _instance = this;
     }
 
+     void Start()
+    {//読み込み
+        gold = PlayerPrefs.GetInt("gold", gold);
+        lv = PlayerPrefs.GetInt("lv", lv);
+        exp = PlayerPrefs.GetInt("exp", exp);
+        smallTimer = PlayerPrefs.GetFloat("scd", smallCountdown);
+        bigTimer = PlayerPrefs.GetFloat("bcd", bigCountdown);
+        UpdateUI();
+    }
+
     void Update()
     {
         Fire();
         ChangeBulletCost();
         UpdateUI();
-        
+        ChangeBg();
     }
     void ChangeBg()
     {
         if (bgIndex !=lv /20)
         {
             bgIndex = lv / 20;
+            AudiManager.Instance.PlayEffectSound(AudiManager.Instance.seaWaveclip);
             Instantiate(seaWaveEffect);
-            if (bgIndex >=3)
+            if (bgIndex >= 3)
             {
                 bgImage.sprite = bgSprites[3];
             }
@@ -105,15 +119,16 @@ public class GameController : MonoBehaviour
         }
 
      
-    while (exp >= 1000 + 200 * lv)//exp計算：次のレベル＝1000+200*現在レベルexp
+    while (exp >=1000 + 200 *lv)//exp計算：次のレベル＝1000+200*現在レベルexp
         {
-
+            exp = exp - (1000+ 200 * lv);
             lv++;
             lvUpTips.SetActive(true);
             lvUpTips.transform.Find("Text").GetComponent<Text>().text = lv.ToString();
             StartCoroutine(lvUpTips.GetComponent<Ef_HideSelf>().HideSelf(0.6f));
+            AudiManager.Instance.PlayEffectSound(AudiManager.Instance.lvUpClip);
             Instantiate(lvEffect);
-            exp = exp - (1000 + 200 * lv);
+            
              
         }
         goldText.text = "$" + gold;
@@ -124,7 +139,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            lvNameText.text = lvName[9];
+            lvNameText.text = lvName[8];
         }
         smallCountdownText.text =  (int)smallTimer / 10 + "  " + (int)smallTimer % 10;//左下タイマーを表す
         bigCountdownText.text = (int)bigTimer + "s";//右上のタイマー
@@ -151,7 +166,9 @@ public class GameController : MonoBehaviour
                     case 4: useBullets = bullet5Gos; break;
                 }
                 bulletIndex = (lv % 10 >= 9) ? 9 : lv % 10;//lv 10ごとに弾の色を変える
+
                 gold -= oneShootCosts[costIndex]; //goldをかかる    
+                AudiManager.Instance.PlayEffectSound(AudiManager.Instance.fireClip);
                 Instantiate(fireEffect);
                 GameObject bullet = Instantiate(useBullets[bulletIndex]);
                 bullet.transform.SetParent(bulletHolder, false);
@@ -185,6 +202,7 @@ public class GameController : MonoBehaviour
         gunGos[costIndex / 4].SetActive(false);
         //今の鉄砲を無効
         costIndex++;
+        AudiManager.Instance.PlayEffectSound(AudiManager.Instance.changeClip);
         Instantiate(changeEffect);
         costIndex = (costIndex > oneShootCosts.Length - 1) ? 0 : costIndex; //最大鉄砲の後は0に戻る
         gunGos[costIndex / 4].SetActive(true);
@@ -197,6 +215,7 @@ public class GameController : MonoBehaviour
         gunGos[costIndex / 4].SetActive(false);
         //今の鉄砲を無効
         costIndex--;
+        AudiManager.Instance.PlayEffectSound(AudiManager.Instance.changeClip);
         costIndex = (costIndex < 0) ? oneShootCosts.Length-1 : costIndex; //最大鉄砲の後は0に戻る
         gunGos[costIndex / 4].SetActive(true);
         //次の鉄砲
@@ -206,6 +225,7 @@ public class GameController : MonoBehaviour
     
         {
         gold += 500;
+        AudiManager.Instance.PlayEffectSound(AudiManager.Instance.rewardClip);
         Instantiate(goldEffect);
         bigCountdownButton.gameObject.SetActive(false); //ボーナスボタン隠す
         bigCountdownText.gameObject.SetActive(true);

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4279362053319982}
   - component: {fileID: 212962162001564770}
   - component: {fileID: 95756438162080578}
+  - component: {fileID: 19183524172607840}
+  - component: {fileID: -4706558212835946787}
   m_Layer: 0
   m_Name: SeaWave
   m_TagString: Untagged
@@ -101,3 +103,28 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &19183524172607840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071628122799310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb5908e1dbde4cd4995d28eaf6eec488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 3
+--- !u!114 &-4706558212835946787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071628122799310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d443eb3efd444d144b9ac015240e7372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

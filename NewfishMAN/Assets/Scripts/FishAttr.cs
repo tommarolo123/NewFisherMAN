@@ -37,6 +37,7 @@ public class FishAttr : MonoBehaviour
             goldGo.transform.rotation = transform.rotation;
             if (gameObject.GetComponent<Ef_PlayEffect>() != null)
             {
+                AudiManager.Instance.PlayEffectSound(AudiManager.Instance.rewardClip);
                 gameObject.GetComponent<Ef_PlayEffect>().PlayEffect();
             }
             Destroy(gameObject);

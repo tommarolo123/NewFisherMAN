@@ -14,10 +14,19 @@ public class AudiManager : MonoBehaviour
         }
     }
 
-    private bool isMute = false;//音スイッチoff
+    private bool isMute = false;//
+    public bool IsMute
+    {
+        get
+        {
+            return isMute;
+        }
+    }
+
+
 
     public AudioSource bgmAudioSource; //bgmやアラームなど
-    public AudioClip seaWave;
+    public AudioClip seaWaveclip;
 
     public AudioClip goldClip;
     public AudioClip rewardClip;
@@ -30,26 +39,34 @@ public class AudiManager : MonoBehaviour
     void Awake()
     {
         _instance = this;
+        isMute = (PlayerPrefs.GetInt("mute", 0) == 0)  ? false : true;
+        DoMute();
     }
 
-    public void SwitchMuteState()//音スイッチ
+    public void SwitchMuteState(bool isOn)//音スイッチ
     {
-        isMute = !isMute;
+        isMute = !isOn;
+        DoMute();
+        
+    }
+
+    void DoMute()
+    {
         if (isMute)
         {
-            bgmAudioSource.Pause();
+             bgmAudioSource.Pause();
 
         }
         else
         {
             bgmAudioSource.Play();
         }
-        
     }
+
     public void PlayEffectSound(AudioClip clip)
     {
         if (!isMute)
-        AudioSource.PlayClipAtPoint(clip, Vector3.zero);
+            AudioSource.PlayClipAtPoint(clip, new Vector3(0, 0, -5));
     }
 
 
